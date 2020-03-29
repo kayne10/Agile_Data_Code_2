@@ -34,8 +34,11 @@ sudo add-apt-repository -y ppa:openjdk-r/ppa
 sudo apt-get update
 sudo apt-get install -y openjdk-8-jdk
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee -a /home/ubuntu/.bash_profile
+# installation does not work - Have to upload java sdk manually with scp
+export JAVA_HOME=/home/ubuntu/jdk1.8.0_241/bin
+echo "export JAVA_HOME=/home/ubuntu/jdk1.8.0_241/bin" | sudo tee -a /home/ubuntu/.bash_profile
+#export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+#echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" | sudo tee -a /home/ubuntu/.bash_profile
 
 # Install Miniconda
 echo "Installing and configuring miniconda3 latest ..." | tee -a $LOG_FILE
@@ -48,10 +51,10 @@ export PATH=/home/ubuntu/anaconda/bin:$PATH # setup .bash_profile at end
 sudo chown -R ubuntu:ubuntu /home/ubuntu/anaconda
 
 # Clone repo, install Python dependencies
-echo "Cloning https://github.com/rjurney/Agile_Data_Code_2 repository and installing dependencies ..." \
+echo "Cloning https://github.com/kayne10/Agile_Data_Code_2 repository and installing dependencies ..." \
   | tee -a $LOG_FILE
 cd /home/ubuntu
-git clone https://github.com/rjurney/Agile_Data_Code_2
+git clone https://github.com/kayne10/Agile_Data_Code_2
 cd /home/ubuntu/Agile_Data_Code_2
 export PROJECT_HOME=/home/ubuntu/Agile_Data_Code_2
 echo "export PROJECT_HOME=/home/ubuntu/Agile_Data_Code_2" | sudo tee -a /home/ubuntu/.bash_profile
@@ -65,7 +68,7 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/Agile_Data_Code_2
 cd /home/ubuntu
 
 # Install commons-httpclient
-curl -Lko /home/ubuntu/Agile_Data_Code_2/lib/commons-httpclient-3.1.jar http://central.maven.org/maven2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar
+curl -Lko /home/ubuntu/Agile_Data_Code_2/lib/commons-httpclient-3.1.jar https://repo1.maven.org/maven2/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar
 
 # Install Hadoop
 echo "" | tee -a $LOG_FILE
@@ -143,7 +146,7 @@ sudo systemctl start mongodb
 
 # Get the MongoDB Java Driver
 echo "Fetching the MongoDB Java driver ..." | tee -a $LOG_FILE
-curl -Lko /home/ubuntu/Agile_Data_Code_2/lib/mongo-java-driver-3.4.2.jar http://central.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.2/mongo-java-driver-3.4.2.jar
+curl -Lko /home/ubuntu/Agile_Data_Code_2/lib/mongo-java-driver-3.4.2.jar https://repo1.maven.org/maven2/org/mongodb/mongo-java-driver/3.4.2/mongo-java-driver-3.4.2.jar
 
 # Install the mongo-hadoop project
 echo "" | tee -a $LOG_FILE
@@ -208,8 +211,8 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/elasticsearch-hadoop
 
 # Install and add snappy-java and lzo-java to our classpath below via spark.jars
 cd /home/ubuntu/Agile_Data_Code_2
-curl -Lko lib/snappy-java-1.1.7.1.jar http://central.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.1/snappy-java-1.1.7.1.jar
-curl -Lko lib/lzo-hadoop-1.0.5.jar http://central.maven.org/maven2/org/anarres/lzo/lzo-hadoop/1.0.5/lzo-hadoop-1.0.5.jar
+curl -Lko lib/snappy-java-1.1.7.1.jar https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.7.1/snappy-java-1.1.7.1.jar
+curl -Lko lib/lzo-hadoop-1.0.5.jar https://repo1.maven.org/maven2/org/anarres/lzo/lzo-hadoop/1.0.5/lzo-hadoop-1.0.5.jar
 cd /home/ubuntu
 
 # Set the spark.jars path
